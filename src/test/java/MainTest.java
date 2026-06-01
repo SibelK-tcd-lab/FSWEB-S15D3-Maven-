@@ -1,6 +1,5 @@
 import org.example.Main;
 import org.example.WordCounter;
-import org.example.entity.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
