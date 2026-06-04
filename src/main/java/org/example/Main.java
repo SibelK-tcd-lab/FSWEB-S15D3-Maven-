@@ -1,4 +1,5 @@
 package org.example;
+
 import org.example.entity.Employee;
 import java.util.*;
 
@@ -10,9 +11,9 @@ public class Main {
 
         employees.add(new Employee(1L, "Ali", "Yılmaz"));
         employees.add(new Employee(2L, "Ayşe", "Demir"));
-        employees.add(new Employee(1L, "Ali", "Yılmaz")); // duplicate
+        employees.add(new Employee(1L, "Ali", "Yılmaz"));
         employees.add(new Employee(3L, "Mehmet", "Kaya"));
-        employees.add(new Employee(2L, "Ayşe", "Demir")); // duplicate
+        employees.add(new Employee(2L, "Ayşe", "Demir"));
         employees.add(new Employee(4L, "Zeynep", "Polat"));
 
         System.out.println("DUPLICATES:");
@@ -25,7 +26,7 @@ public class Main {
         System.out.println(removeDuplicates(employees));
     }
 
-    // 1. Duplicate olanları bul
+    // duplicate olanları bul
     public static List<Employee> findDuplicates(List<Employee> list) {
 
         Map<Long, Integer> countMap = new HashMap<>();
@@ -44,26 +45,19 @@ public class Main {
         return duplicates;
     }
 
-    // 2. Unique + duplicate olanlardan sadece 1 tanesini Map'e koy
+    // unique + ilk görüleni map'e koy
     public static Map<Long, Employee> findUniques(List<Employee> list) {
 
-        Map<Long, Integer> countMap = new HashMap<>();
         Map<Long, Employee> result = new HashMap<>();
 
         for (Employee e : list) {
-            countMap.put(e.getId(), countMap.getOrDefault(e.getId(), 0) + 1);
-        }
-
-        for (Employee e : list) {
-            if (!result.containsKey(e.getId())) {
-                result.put(e.getId(), e); // sadece 1 tane eklenir
-            }
+            result.putIfAbsent(e.getId(), e);
         }
 
         return result;
     }
 
-    // 3. Duplicate olanları tamamen sil, sadece tekil olanları bırak
+    // sadece tek olanları bırak
     public static List<Employee> removeDuplicates(List<Employee> list) {
 
         Map<Long, Integer> countMap = new HashMap<>();

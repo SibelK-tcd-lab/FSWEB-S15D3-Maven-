@@ -5,38 +5,50 @@ import java.util.Objects;
 public class Employee {
 
     private Long id;
-    private String firstname;
-    private String lastname;
+    private String name;
+    private String surname;
 
-    public Employee(Long id, String firstname, String lastname) {
+    public Employee() {}
+
+    public Employee(Long id, String name, String surname) {
         this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.name = name;
+        this.surname = surname;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getName() {
+        return name;
     }
 
-    // 🔥 Konsolda düzgün görünmesi için
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     @Override
     public String toString() {
-        return id + " " + firstname + " " + lastname;
+        return name + " " + surname;
     }
 
-    // 🔥 Duplicate kontrolü için kritik (ID bazlı eşitlik)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
         return Objects.equals(id, employee.id);
     }
