@@ -4,11 +4,13 @@ import org.example.entity.Employee;
 import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) {
-        // İsteğe bağlı olarak konsol testi için burası kullanılabilir.
+        // İsteğe bağlı: Performans testini buradan tetikleyebilirsiniz
+        TimeComplexity.runPerformanceTest();
     }
 
-    // findDuplicates: Tekrar eden elemanları bulur (null güvenli)
+    // 1. findDuplicates: Tekrar eden elemanları bulur (null güvenli)
     public static List<Employee> findDuplicates(List<Employee> list) {
         Set<Employee> uniques = new HashSet<>();
         Set<Employee> duplicates = new HashSet<>();
@@ -23,7 +25,7 @@ public class Main {
         return new ArrayList<>(duplicates);
     }
 
-    // findUniques: Her elemandan sadece bir tane barındıran Map döner (null güvenli)
+    // 2. findUniques: Her elemandan sadece bir tane barındıran Map döner (null güvenli)
     public static Map<Integer, Employee> findUniques(List<Employee> list) {
         Map<Integer, Employee> uniqueMap = new HashMap<>();
         for (Employee emp : list) {
@@ -34,7 +36,7 @@ public class Main {
         return uniqueMap;
     }
 
-    // removeDuplicates: Birden fazla kez geçen elemanların hepsini siler, sadece 1 kez geçenleri döner
+    // 3. removeDuplicates: Birden fazla kez geçen elemanların hepsini siler, sadece 1 kez geçenleri döner
     public static List<Employee> removeDuplicates(List<Employee> list) {
         Map<Employee, Integer> countMap = new HashMap<>();
 
