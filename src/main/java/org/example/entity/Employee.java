@@ -1,26 +1,43 @@
 package org.example.entity;
 
+import java.util.Objects;
+
 public class Employee {
+    private int id;
+    private String firstname;
+    private String lastname;
 
-    private Long id;
-    private String name;
-    private String surname;
-
-    public Employee(Long id, String name, String surname) {
+    // Tek constructor (3 parametreli)
+    public Employee(int id, String firstname, String lastname) {
         this.id = id;
-        this.name = name;
-        this.surname = surname;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
-    public Long getId() {
-        return id;
+    // Getter ve Setter metotları
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getFirstname() { return firstname; }
+    public void setFirstname(String firstname) { this.firstname = firstname; }
+    public String getLastname() { return lastname; }
+    public void setLastname(String lastname) { this.lastname = lastname; }
+
+    // Testlerin doğruluğu ve Map/Set yapıları için id alanına göre equals ve hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
-    public String getSurname() {
-        return surname;
+    @Override
+    public String toString() {
+        return "Employee{id=" + id + ", name='" + firstname + " " + lastname + "'}";
     }
 }

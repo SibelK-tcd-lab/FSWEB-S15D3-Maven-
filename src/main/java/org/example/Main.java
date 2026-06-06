@@ -1,76 +1,57 @@
 package org.example;
 
 import org.example.entity.Employee;
-
 import java.util.*;
 
 public class Main {
-
     public static void main(String[] args) {
-
-        LinkedList<Employee> employees = new LinkedList<>();
-
-        employees.add(new Employee(1L, "Ali", "Yilmaz"));
-        employees.add(new Employee(1L, "Ali", "Yilmaz"));
-        employees.add(new Employee(2L, "Ayse", "Demir"));
-        employees.add(new Employee(2L, "Ayse", "Demir"));
-        employees.add(new Employee(3L, "Mehmet", "Kaya"));
-        employees.add(new Employee(4L, "Zeynep", "Polat"));
-
-        System.out.println(findDuplicates(employees));
-        System.out.println(findUniques(employees));
-        System.out.println(removeDuplicates(employees));
-
-        System.out.println(WordCounter.calculateWord());
+        // İsteğe bağlı olarak konsol testi için burası kullanılabilir.
     }
 
-    // 1. DUPLICATES
+    // findDuplicates: Tekrar eden elemanları bulur (null güvenli)
     public static List<Employee> findDuplicates(List<Employee> list) {
+        Set<Employee> uniques = new HashSet<>();
+        Set<Employee> duplicates = new HashSet<>();
 
-        Map<Long, Integer> countMap = new HashMap<>();
-        List<Employee> result = new LinkedList<>();
-
-        for (Employee e : list) {
-            countMap.put(e.getId(), countMap.getOrDefault(e.getId(), 0) + 1);
-        }
-
-        for (Employee e : list) {
-            if (countMap.get(e.getId()) > 1) {
-                result.add(e);
+        for (Employee emp : list) {
+            if (emp != null) {
+                if (!uniques.add(emp)) {
+                    duplicates.add(emp);
+                }
             }
         }
-
-        return result;
+        return new ArrayList<>(duplicates);
     }
 
-    // 2. UNIQUES (Map)
-    public static Map<Long, Employee> findUniques(List<Employee> list) {
-
-        Map<Long, Employee> map = new HashMap<>();
-
-        for (Employee e : list) {
-            map.putIfAbsent(e.getId(), e);
+    // findUniques: Her elemandan sadece bir tane barındıran Map döner (null güvenli)
+    public static Map<Integer, Employee> findUniques(List<Employee> list) {
+        Map<Integer, Employee> uniqueMap = new HashMap<>();
+        for (Employee emp : list) {
+            if (emp != null) {
+                uniqueMap.put(emp.getId(), emp);
+            }
         }
-
-        return map;
+        return uniqueMap;
     }
 
-    // 3. REMOVE DUPLICATES
+    // removeDuplicates: Birden fazla kez geçen elemanların hepsini siler, sadece 1 kez geçenleri döner
     public static List<Employee> removeDuplicates(List<Employee> list) {
+        Map<Employee, Integer> countMap = new HashMap<>();
 
-        Map<Long, Integer> countMap = new HashMap<>();
-        List<Employee> result = new LinkedList<>();
-
-        for (Employee e : list) {
-            countMap.put(e.getId(), countMap.getOrDefault(e.getId(), 0) + 1);
-        }
-
-        for (Employee e : list) {
-            if (countMap.get(e.getId()) == 1) {
-                result.add(e);
+        // Frekans sayımı
+        for (Employee emp : list) {
+            if (emp != null) {
+                countMap.put(emp, countMap.getOrDefault(emp, 0) + 1);
             }
         }
 
-        return result;
+        List<Employee> resultList = new ArrayList<>();
+        // Sadece listede 1 kere geçenleri ekle
+        for (Employee emp : list) {
+            if (emp != null && countMap.get(emp) == 1) {
+                resultList.add(emp);
+            }
+        }
+        return resultList;
     }
 }
